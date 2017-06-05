@@ -13,6 +13,8 @@
 		C8A40A3A1EE1DA1500648907 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C8A40A381EE1DA1500648907 /* Main.storyboard */; };
 		C8A40A3C1EE1DA1500648907 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8A40A3B1EE1DA1500648907 /* Assets.xcassets */; };
 		C8A40A3F1EE1DA1500648907 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C8A40A3D1EE1DA1500648907 /* LaunchScreen.storyboard */; };
+		C8A40A471EE1DA3100648907 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8A40A461EE1DA3100648907 /* Contact.swift */; };
+		C8A40A491EE1E37400648907 /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8A40A481EE1E37400648907 /* ContactTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		C8A40A3B1EE1DA1500648907 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C8A40A3E1EE1DA1500648907 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C8A40A401EE1DA1500648907 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C8A40A461EE1DA3100648907 /* Contact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
+		C8A40A481EE1E37400648907 /* ContactTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +67,8 @@
 				C8A40A3B1EE1DA1500648907 /* Assets.xcassets */,
 				C8A40A3D1EE1DA1500648907 /* LaunchScreen.storyboard */,
 				C8A40A401EE1DA1500648907 /* Info.plist */,
+				C8A40A461EE1DA3100648907 /* Contact.swift */,
+				C8A40A481EE1E37400648907 /* ContactTableViewCell.swift */,
 			);
 			path = "Contact Keeper";
 			sourceTree = "<group>";
@@ -140,6 +146,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8A40A471EE1DA3100648907 /* Contact.swift in Sources */,
+				C8A40A491EE1E37400648907 /* ContactTableViewCell.swift in Sources */,
 				C8A40A371EE1DA1500648907 /* DetailViewController.swift in Sources */,
 				C8A40A351EE1DA1500648907 /* MasterViewController.swift in Sources */,
 				C8A40A331EE1DA1500648907 /* AppDelegate.swift in Sources */,
