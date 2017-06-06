@@ -34,8 +34,14 @@ class DetailViewController: UIViewController {
             nameLabel?.text = contact.fullName
             phoneNumberLabel?.text = contact.phoneNumber
             emailLabel?.text = contact.emailAddress
-            addrLineOneLabel?.text = contact.homeAddress.streetAddress
-            addrLineTwoLabel?.text = "\(contact.homeAddress.city), \(contact.homeAddress.state) \(contact.homeAddress.zip)"
+            
+            if let homeAddress = contact.homeAddress {
+                addrLineOneLabel?.text = homeAddress.streetAddress
+                addrLineTwoLabel?.text = "\(homeAddress.city), \(homeAddress.state) \(homeAddress.zip)"
+            } else {
+                addrLineOneLabel.text = ""
+                addrLineTwoLabel.text = ""
+            }
         } else {
             self.title = "Select A Contact"
         }

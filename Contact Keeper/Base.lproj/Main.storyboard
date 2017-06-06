@@ -223,7 +223,7 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="adam" translatesAutoresizingMaskIntoConstraints="NO" id="FqL-FF-Gco">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FqL-FF-Gco">
                                             <rect key="frame" x="20" y="13.5" width="50" height="50"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="50" id="SfC-Ni-uiX"/>
@@ -280,9 +280,6 @@
             <point key="canvasLocation" x="-45" y="129"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="adam" width="590" height="590"/>
-    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="6S0-TO-JiA"/>
     </inferredMetricsTieBreakers>

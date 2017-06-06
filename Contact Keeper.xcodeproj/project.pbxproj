@@ -277,6 +277,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 3GLKR344GU;
 				INFOPLIST_FILE = "Contact Keeper/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.chariot.Contact-Keeper";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -290,6 +291,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 3GLKR344GU;
 				INFOPLIST_FILE = "Contact Keeper/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.chariot.Contact-Keeper";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -316,6 +318,7 @@
 				C8A40A451EE1DA1500648907 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

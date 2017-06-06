@@ -7,18 +7,30 @@
 //
 
 import UIKit
+import Contacts
 
 struct Contact {
     
-    var firstName: String
-    var lastName: String
-    var phoneNumber: String
-    var emailAddress: String
-    var homeAddress: Address
-    var image: UIImage
+    var firstName: String?
+    var lastName: String?
+    var phoneNumber: String?
+    var emailAddress: String?
+    var homeAddress: Address?
+    var image: UIImage?
     
     var fullName: String {
-        return "\(firstName) \(lastName)"
+        var name = ""
+        if let first = firstName {
+            name = first
+        }
+        if let last = lastName {
+            if name == "" {
+                name = last
+            } else {
+                name += " \(last)"
+            }
+        }
+        return name
     }
     
     static func generateContacts() -> [Contact] {
@@ -36,6 +48,39 @@ struct Contact {
         }
         
         return contacts
+    }
+    
+    init(firstName: String?, lastName: String?, phoneNumber: String?, emailAddress: String?, homeAddress: Address?, image: UIImage?) {
+        self.firstName = firstName
+        self.lastName = lastName
+        self.phoneNumber = phoneNumber
+        self.emailAddress = emailAddress
+        self.homeAddress = homeAddress
+        self.image = image
+    }
+    
+    init(contact: CNContact) {
+        let first = contact.givenName
+        let last = contact.familyName
+        let phoneNumber = contact.phoneNumbers.first?.value.stringValue
+        let email = contact.emailAddresses.first?.value as String?
+        
+        var contactAddress: Address?
+        if let address = contact.postalAddresses.first?.value {
+            let street = address.street
+            let city = address.city
+            let state = address.state
+            let zip = address.postalCode
+            
+            contactAddress = Address(streetAddress: street, city: city, state: state, zip: zip)
+        }
+        
+        var image: UIImage?
+        if let imageData = contact.imageData {
+            image = UIImage(data: imageData)
+        }
+        
+        self.init(firstName: first, lastName: last, phoneNumber: phoneNumber, emailAddress: email, homeAddress: contactAddress, image: image)
     }
     
 }

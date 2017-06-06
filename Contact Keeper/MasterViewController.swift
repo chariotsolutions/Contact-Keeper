@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Contacts
+import MobileCoreServices
 
 class MasterViewController: UITableViewController {
 
@@ -21,6 +23,8 @@ class MasterViewController: UITableViewController {
             let controllers = split.viewControllers
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
+        
+        tableView.dropDelegate = self
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -66,5 +70,55 @@ class MasterViewController: UITableViewController {
         
         return cell
     }
+}
+
+extension MasterViewController: UITableViewDropDelegate {
+    
+    func tableView(_ tableView: UITableView, canHandle session: UIDropSession) -> Bool {
+        return session.hasItemsConforming(toTypeIdentifiers: [kUTTypeVCard as String]) && session.items.count == 1
+    }
+    
+    func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
+        return UITableViewDropProposal(dropOperation: .copy, intent: .insertAtDestinationIndexPath)
+    }
+    
+    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
+        let destinationIndexPath: IndexPath
+        
+        if let indexPath = coordinator.destinationIndexPath {
+            destinationIndexPath = indexPath
+        } else {
+            // Get last index path of table view.
+            let section = tableView.numberOfSections - 1
+            let row = tableView.numberOfRows(inSection: section)
+            destinationIndexPath = IndexPath(row: row, section: section)
+        }
+        
+        for item: UIDragItem in coordinator.session.items {
+            item.itemProvider.loadDataRepresentation(forTypeIdentifier: kUTTypeVCard as String, completionHandler: { (data, error) in
+                if let data = data {
+                    do {
+                        let newContacts = try CNContactVCardSerialization.contacts(with: data)
+                        var indexPaths = [IndexPath]()
+                        
+                        for (index, contact) in newContacts.enumerated() {
+                            let indexPath = IndexPath(row: destinationIndexPath.row + index, section: destinationIndexPath.section)
+                            indexPaths.append(indexPath)
+                            
+                            let newContact = Contact(contact: contact)
+                            self.contacts.insert(newContact, at: indexPath.row)
+                        }
+                        
+                        DispatchQueue.main.async {[weak self]() in
+                            self?.tableView.insertRows(at: indexPaths, with: .automatic)
+                        }
+                    } catch {
+                        // an error occurred
+                    }
+                }
+            })
+        }
+    }
+    
 }
 
