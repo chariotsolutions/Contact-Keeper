@@ -51,6 +51,10 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         configureView()
+        
+        let dropInteraction = UIDropInteraction(delegate: self)
+        imageView.addInteraction(dropInteraction)
+        imageView.isUserInteractionEnabled = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -79,3 +83,32 @@ class DetailViewController: UIViewController {
     
 }
 
+extension DetailViewController: UIDropInteractionDelegate {
+    
+    func dropInteraction(_ interaction: UIDropInteraction, canHandle session: UIDropSession) -> Bool {
+        return session.canLoadObjects(ofClass: UIImage.self) && session.items.count == 1
+    }
+    
+    func dropInteraction(_ interaction: UIDropInteraction, sessionDidUpdate session: UIDropSession) -> UIDropProposal {
+        let dropLocation = session.location(in: view)
+        
+        let operation: UIDropOperation
+        
+        if imageView.frame.contains(dropLocation) {
+            operation = .copy
+        } else {
+            operation = .cancel
+        }
+        
+        return UIDropProposal(operation: operation)
+    }
+    
+    func dropInteraction(_ interaction: UIDropInteraction, performDrop session: UIDropSession) {
+        session.loadObjects(ofClass: UIImage.self) { [weak self]imageItems in
+            let images = imageItems as! [UIImage]
+            self?.imageView.image = images.first
+            self?.contact?.image = images.first
+        }
+    }
+    
+}
