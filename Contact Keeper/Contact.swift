@@ -83,6 +83,17 @@ struct Contact {
         self.init(firstName: first, lastName: last, phoneNumber: phoneNumber, emailAddress: email, homeAddress: contactAddress, image: image)
     }
     
+    func cnContact() -> CNMutableContact {
+        let contact = CNMutableContact()
+        contact.contactType = .person
+        contact.givenName = firstName ?? ""
+        contact.familyName = lastName ?? ""
+        contact.phoneNumbers = [CNLabeledValue(label:CNLabelPhoneNumberiPhone, value:CNPhoneNumber(stringValue:phoneNumber ?? "")!)]
+        contact.emailAddresses = [CNLabeledValue(label:CNLabelHome, value:(emailAddress ?? "") as NSString)]
+        
+        return contact
+    }
+    
 }
 
 struct Address {

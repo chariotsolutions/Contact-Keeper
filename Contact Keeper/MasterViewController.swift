@@ -25,6 +25,7 @@ class MasterViewController: UITableViewController {
         }
         
         tableView.dropDelegate = self
+        tableView.dragDelegate = self
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -70,6 +71,25 @@ class MasterViewController: UITableViewController {
         
         return cell
     }
+}
+
+extension MasterViewController: UITableViewDragDelegate {
+    
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        let contact = contacts[indexPath.row]
+        let contactCopy = contact.cnContact()
+        
+        let data = try? CNContactVCardSerialization.data(with: [contactCopy])
+        let itemProvider = NSItemProvider()
+        
+        itemProvider.registerDataRepresentation(forTypeIdentifier: kUTTypeVCard as String, visibility: .all) { completion in
+            completion(data, nil)
+            return nil
+        }
+        
+        return [UIDragItem(itemProvider: itemProvider)]
+    }
+    
 }
 
 extension MasterViewController: UITableViewDropDelegate {
