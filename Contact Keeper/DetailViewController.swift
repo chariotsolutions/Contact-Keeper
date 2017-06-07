@@ -96,6 +96,9 @@ extension DetailViewController: UIDragInteractionDelegate {
         let item = UIDragItem(itemProvider: provider)
         item.localObject = image
         
+        // add context to the drag sessions so that we know what UIImageView this drag started from
+        session.localContext = imageView
+        
         return [item]
     }
 }
@@ -112,7 +115,12 @@ extension DetailViewController: UIDropInteractionDelegate {
         let operation: UIDropOperation
         
         if imageView.frame.contains(dropLocation) {
-            operation = .copy
+            if let sourceImageView = session.localDragSession?.localContext as? UIImageView, sourceImageView == imageView {
+                // if the local context is the same UIImageView as we would want to place the image if it was dropped here, then we don't accept it.
+                operation = .cancel
+            } else {
+                operation = .copy
+            }
         } else {
             operation = .cancel
         }
