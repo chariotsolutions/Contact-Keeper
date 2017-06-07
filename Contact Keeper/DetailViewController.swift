@@ -117,7 +117,7 @@ extension DetailViewController: UIDropInteractionDelegate {
         if imageView.frame.contains(dropLocation) {
             if let sourceImageView = session.localDragSession?.localContext as? UIImageView, sourceImageView == imageView {
                 // if the local context is the same UIImageView as we would want to place the image if it was dropped here, then we don't accept it.
-                operation = .cancel
+                operation = .forbidden
             } else {
                 operation = .copy
             }
