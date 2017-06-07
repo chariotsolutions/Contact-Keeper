@@ -55,6 +55,9 @@ class DetailViewController: UIViewController {
         let dropInteraction = UIDropInteraction(delegate: self)
         imageView.addInteraction(dropInteraction)
         imageView.isUserInteractionEnabled = true
+        
+        let dragInteraction = UIDragInteraction(delegate: self)
+        imageView.addInteraction(dragInteraction)
     }
 
     override func didReceiveMemoryWarning() {
@@ -81,6 +84,20 @@ class DetailViewController: UIViewController {
         print("Send email to \(contact?.firstName ?? "contact")")
     }
     
+}
+
+extension DetailViewController: UIDragInteractionDelegate {
+    func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session: UIDragSession) -> [UIDragItem] {
+        guard let image = imageView.image else {
+            return []
+        }
+        
+        let provider = NSItemProvider(object: image)
+        let item = UIDragItem(itemProvider: provider)
+        item.localObject = image
+        
+        return [item]
+    }
 }
 
 extension DetailViewController: UIDropInteractionDelegate {
