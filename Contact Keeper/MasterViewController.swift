@@ -87,6 +87,9 @@ extension MasterViewController: UITableViewDragDelegate {
             return nil
         }
         
+        // set the table view as the context so that the drop delegate methods can determine when to reject this
+        session.localContext = tableView
+        
         return [UIDragItem(itemProvider: itemProvider)]
     }
     
@@ -99,6 +102,10 @@ extension MasterViewController: UITableViewDropDelegate {
     }
     
     func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
+        if let sourceTable = session.localDragSession?.localContext as? UITableView, sourceTable == tableView {
+            return UITableViewDropProposal(operation: .forbidden)
+        }
+        
         return UITableViewDropProposal(dropOperation: .copy, intent: .insertAtDestinationIndexPath)
     }
     
